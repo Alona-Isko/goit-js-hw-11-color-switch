@@ -18,9 +18,13 @@ const randomIntegerFromInterval = (min, max) => {
 
 refs.startBtn.addEventListener('click', () => {
     colorsSwitch.start();
+    refs.startBtn.disabled = true;
+    refs.stopBtn.disabled = false;
 });
 refs.stopBtn.addEventListener('click', () => {
     colorsSwitch.stop();
+    refs.stopBtn.disabled = true;
+    refs.startBtn.disabled = false;
 });
 
 const colorsSwitch = {
@@ -44,6 +48,11 @@ const colorsSwitch = {
 }
 
 function changeBackground(color) {
-  const currentColor = randomIntegerFromInterval(0, colors.length - 1);
+    let currentColor = document.body.style.backgroundColor;
+    do {
+        currentColor = randomIntegerFromInterval(0, colors.length - 1);
+    }
+    while (currentColor === document.body.style.backgroundColor);
+ 
   document.body.style.backgroundColor = color[currentColor];
 }
